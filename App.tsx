@@ -8,7 +8,7 @@ export default function App() {
       <StatusBar
         barStyle="light-content"
         translucent
-        backgroundColor="transparent"
+        backgroundColor="#0D0D0D"
       />
       <Header />
       <TasksData />
@@ -18,7 +18,7 @@ export default function App() {
 
 const S = StyleSheet.create({
   mainContainer: {
-    backgroundColor: '#0D0D0D',
+    backgroundColor: '#1A1A1A',
     height: '100%'
   }
 })
