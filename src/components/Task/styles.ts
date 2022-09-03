@@ -16,7 +16,6 @@ export const S = StyleSheet.create({
   text: {
     paddingHorizontal: 15,
     fontSize: 18,
-    color: '#FFFF',
     maxWidth: 300,
   },
 

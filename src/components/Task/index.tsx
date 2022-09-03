@@ -36,7 +36,7 @@ export function Task({
       <Text
         style={[
           S.text,
-          { textDecorationLine: `${available ? 'none' : 'line-through'}` }
+          { textDecorationLine: `${available ? 'none' : 'line-through'}`, color: `${available ? '#ffff' : '#ffffff5a'}` }
         ]}
       >
         {content}
