@@ -22,21 +22,58 @@ export function TasksData() {
   const [tasks, setTasks] = useState<TaskProps[]>([])
   const [taskText, setTaskText] = useState('')
   const [createdTasksNumber, setCreatedTasksNumber] = useState(0)
+  const [doneTasksNumber, setDoneTasksNumber] = useState(0)
 
   function addNewTask() {
-    setTasks([
-      ...tasks,
-      {
-        id: uuid.v4(),
-        content: taskText,
-        available: false
-      }
-    ])
+    if (taskText !== '') {
+      setTasks([
+        ...tasks,
+        {
+          id: uuid.v4(),
+          content: taskText,
+          available: true
+        }
+      ])
 
-    setTaskText('')
-    setCreatedTasksNumber(oldState => {
-      return oldState + 1
+      setTaskText('')
+      setCreatedTasksNumber(oldState => {
+        return oldState + 1
+      })
+    }
+  }
+  function AvailableTasksCounter() {
+    let doneTasksCounter = 0
+    for (let i in tasks) {
+      if (!tasks[i].available) {
+        doneTasksCounter += 1
+      }
+    }
+    setDoneTasksNumber(doneTasksCounter)
+  }
+  function handleRemoveTask(id: string) {
+    const newFilteredTasks = tasks.filter(task => {
+      if (id === task.id) {
+        return
+      }
+      return task
     })
+
+    setTasks(newFilteredTasks)
+    AvailableTasksCounter()
+    setCreatedTasksNumber(oldState => {
+      return oldState - 1
+    })
+  }
+  function changeCheckedState(id: string) {
+    const tasksWithNewAvailableList = tasks.map(task => {
+      if (task.id === id) {
+        task.available = !task.available
+        return task
+      }
+      return task
+    })
+    setTasks(tasksWithNewAvailableList)
+    AvailableTasksCounter()
   }
 
   return (
@@ -60,7 +97,7 @@ export function TasksData() {
         </View>
         <View style={S.dataContainer}>
           <Text style={S.textInputCompleted}>Concluídas</Text>
-          <Text style={S.numberText}>0</Text>
+          <Text style={S.numberText}>{doneTasksNumber}</Text>
         </View>
       </View>
       <FlatList
@@ -73,6 +110,8 @@ export function TasksData() {
             available={item.available}
             content={item.content}
             id={item.id.toString()}
+            changeCheckedState={changeCheckedState}
+            handleRemoveTask={handleRemoveTask}
           />
         )}
       />

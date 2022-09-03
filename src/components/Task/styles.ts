@@ -17,7 +17,7 @@ export const S = StyleSheet.create({
     paddingHorizontal: 15,
     fontSize: 18,
     color: '#FFFF',
-    maxWidth: 300
+    maxWidth: 300,
   },
 
   imageBox: {
@@ -30,3 +30,6 @@ export const S = StyleSheet.create({
     height: '100%'
   }
 })
+
+
+
